@@ -6,3 +6,38 @@
 
 # Mac OS X files
 .DS_Store
+
+#
+*.log
+
+# Autotools 
+compile
+config.guess
+config.sub
+config.status
+depcomp
+elisp-comp
+install-sh
+mdate-sh
+missing
+mkinstalldirs
+py-compile
+texinfo.tex
+ylwrap
+aclocal.m4
+libtool
+ltmain.sh
+configure
+test-driver
+Makefile
+Makefile.in
+config.h.in
+*.pc
+
+# 
+autom4te.cache/
+builds/
+
+# 
+include/config.h
+include/stamp-h1
