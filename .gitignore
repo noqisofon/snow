@@ -9,6 +9,11 @@
 
 #
 *.log
+*.la
+*.o
+*.la
+*.a
+*.so
 
 # Autotools 
 compile
@@ -37,6 +42,8 @@ config.h.in
 # 
 autom4te.cache/
 builds/
+.libs/
+.deps/
 
 # 
 include/config.h

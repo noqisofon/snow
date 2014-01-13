@@ -1,0 +1,56 @@
+commit f959dde1f247d806814546eb39275ed7933004c4
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Mon Jan 13 11:23:16 2014 +0900
+
+    automake の実行に必要なファイルを touch して autotools 実行
+
+ AUTHORS      |   0
+ COPYING      | 674 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ ChangeLog    |   0
+ INSTALL      | 370 ++++++++++++++++++++++++++++++++
+ NEWS         |   0
+ README       |   0
+ configure.ac |  68 +++++-
+ 7 files changed, 1110 insertions(+), 2 deletions(-)
+
+commit 87fc9dc1a03360d3efb785f4e70561fe550cb555
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Mon Jan 13 11:05:08 2014 +0900
+
+    Makefile.am を追加
+
+ Makefile.am              | 19 +++++++++++++++++++
+ include/Makefile.am      |  3 +++
+ include/snow/Makefile.am |  9 +++++++++
+ src/Makefile.am          | 10 ++++++++++
+ 4 files changed, 41 insertions(+)
+
+commit 1d6fba3a0103e29865992ae7bc7f27bd8293d623
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Sun Jan 12 23:06:21 2014 +0900
+
+    autoscan してから s/configure.scan/configure.ac/ して AC_INIT の中身とか修正した
+
+ .gitignore   | 35 +++++++++++++++++++++++++++++++++++
+ configure.ac | 20 ++++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+
+commit faf1d34f1700febd02000a5d1786f75a756260d0
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Sun Jan 12 22:54:01 2014 +0900
+
+    add README.md
+
+ README.md | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 587623baa2e86473701c7fad66f66a8cde5aa5fd
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Sun Jan 12 22:43:30 2014 +0900
+
+    first commit
+
+ .gitignore            |   8 ++++
+ include/snow/object.h | 112 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ include/snow/snow.h   |  47 +++++++++++++++++++++
+ 3 files changed, 167 insertions(+)
