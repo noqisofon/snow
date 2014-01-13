@@ -7,4 +7,6 @@ libsnow_la_LIBADD =
 
 libsnow_la_DEPENDENXIES =
 
-libsnow_la_SOURCES = 
+libsnow_la_SOURCES = \
+	object.c \
+	buildin.c

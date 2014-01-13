@@ -24,6 +24,9 @@
 #define object_h
 
 
+_BEGIN_C_EXTERN
+
+
 typedef enum _snow_type_id {
     snow_t_nil          = 0,
     snow_t_object       = 1,
@@ -45,9 +48,14 @@ typedef enum _snow_type_id {
     snow_t_complex      = ( 12 << 2 ) | snow_t_object,
 
     snow_t_namespace    = ( 13 << 2 ) | snow_t_object,
+    snow_t_stream       = ( 14 << 2 ) | snow_t_object,
 } snow_type_id;
 
-typedef union snow_object*  snow_object;
+
+#define SNOW_SET_TYPEID(_that_, _type_id_)      (((struct snow_generic *)(_that_))->_type_id) = _type_id_
+
+
+typedef struct snow_generic*  snow_object;
 
 
 #define SNOW_NIL                ((snow_object) NULL)
@@ -59,7 +67,9 @@ typedef union snow_object*  snow_object;
 #define SNOW_STRING_TAG         snow_t_string
 #define SNOW_SYMBOL_TAG         snow_t_symbol
 
-#define SNOW_HEADER             uint8_t _type_id; snow_object _base
+#define SNOW_HEADER             \
+    uint8_t _type_id;           \
+    snow_object _base
 
 struct snow_cons {
     SNOW_HEADER;
@@ -67,8 +77,13 @@ struct snow_cons {
     snow_object   _car;
     snow_object   _cdr;
 };
-#define SNOW_CONS_CAR(_that_)       ((_that_)->_cons._car)
-#define SNOW_CONS_CDR(_that_)       ((_that_)->_cons._cdr)
+#define SNOW_CONS_CAR(_that_)       (((struct snow_cons *)(_that_))->_car)
+#define SNOW_CONS_CDR(_that_)       (((struct snow_cons *)(_that_))->_cdr)
+
+/*!
+ * 
+ */
+SNOW_API snow_object snow_make_cons(SNOW_ENV);
 
 struct snow_symbol {
     SNOW_HEADER;
@@ -77,34 +92,34 @@ struct snow_symbol {
     snow_object       _fun;
     snow_object       _name;
 };
-#define SNOW_SYM_FUNC(_that_)       ((_that_)->_symbol._func)
+#define SNOW_SYM_FUNC(_that_)       (((struct snow_symbol *)(_that_))_func)
 
 struct snow_single_float {
     SNOW_HEADER;
 
     float _val;
 };
-#define SNOW_SINGLE_FLOAT(_that_)   ((_that_)->_sf._val)
+#define SNOW_SINGLE_FLOAT(_that_)   (((struct snow_single_float *)(_that_))->_val)
 
 struct snow_double_float {
     SNOW_HEADER;
 
     double _val;
 };
-#define SNOW_DOUBLE_FLOAT(_that_)   ((_that_)->_df._val)
+#define SNOW_DOUBLE_FLOAT(_that_)   (((struct snow_double_float *)(_that_))->_val)
 
-#define SNOW_OBJTYPE(_that_)        ((_that_)->_type_id)
-#define SNOW_NILP(_that_)           ((_that_) == SNOW_NIL)
+#define SNOW_OBJTYPE(_that_)        (((struct snow_generic *)(_that_))->_type_id)
+#define SNOW_NILP(_that_)           (((struct snow_generic *)(_that_)) == SNOW_NIL)
 #define SNOW_LISTP(_that_)          (SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
 #define SNOW_CONSP(_that_)          (!SNOW_NILP(_that_) && (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
 #define SNOW_SYMBOLP(_that_)        (SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_SYMBOL_TAG))
 
-union snow_object {
-    struct snow_cons          _cons;
-    struct snow_symbol        _symbol;
-    struct snow_single_float  _sf;
-    struct snow_double_float  _df;
+struct snow_generic {
+    SNOW_HEADER;
 };
+
+_END_C_EXTERN
+
 
 #endif  /* object_h */
 // Local Variables:

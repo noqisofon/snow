@@ -1,5 +1,5 @@
 /* 
-     buildin.h  -  buildin functions
+     object.c   - data structures
 */
 /* 
  Auther:
@@ -20,20 +20,47 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef snow_buildin_h
-#define snow_buildin_h
+#include "config.h"
+
+#include "snow/allocate.h"
+#include "snow/object.h"
+
 
 _BEGIN_C_EXTERN
 
-/*!
- *
- */
-_SNOW_API void snow_object snow_cons(snow_object car, snow_object cdr);
+
+static snow_object snow_make_instace(uint8_t type_id)
+{
+    snow_object ret;
+
+    switch ( type_id ) {
+        case snow_t_symbol:
+            ret = snow_alloc( sizeof(struct snow_symbol) );
+            SNOW_SET_TYPEID(ret, snow_t_symbol);
+
+        case snow_t_cons:
+            ret = snow_alloc( sizeof(struct snow_cons) );
+            SNOW_SET_TYPEID(ret, snow_t_cons);
+
+        default:
+            ret = SNOW_NIL;
+    }
+
+    return ret;
+}
+
+
+SNOW_API snow_object snow_make_cons(SNOW_ENV)
+{
+    return snow_make_instance( snow_t_cons );
+}
 
 
 _END_C_EXTERN
 
-#endif  /* snow_buildin_h */
+
+#endif  /* object_h */
 // Local Variables:
-//   mode: utf-8
+//   coding: utf-8
 // End:
+
