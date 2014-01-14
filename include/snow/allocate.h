@@ -1,5 +1,5 @@
 /* 
-     environment.h  -  environment structs and functions
+     allocate.h
 */
 /* 
  Auther:
@@ -20,29 +20,23 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef snow_environment_h
-#define snow_environment_h
+#ifndef snow_allocate_h
+#define snow_allocate_h
 
 
 _BEGIN_EXTERN_C
 
 
-struct snow_env_s {
-    volatile int _disable_interrupts;
-    
-};
-
-
-typedef    struct snow_env_s*   SNEnvironment_ref;
-
-
-#define SNOW_ENV    const SNEnvironment_ref env
+/*!
+ *
+ */
+SNOW_API SNObject_ref snow_alloc(size_t size);
 
 
 _END_EXTERN_C
 
 
-#endif  /* snow_environment_h */
+#endif  /* snow_allocate_h */
 // Local Variables:
 //   coding: utf-8
 // End:

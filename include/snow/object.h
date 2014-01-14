@@ -20,11 +20,11 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef object_h
-#define object_h
+#ifndef snow_object_h
+#define snow_object_h
 
 
-_BEGIN_C_EXTERN
+_BEGIN_EXTERN_C
 
 
 typedef enum _snow_type_id {
@@ -52,13 +52,11 @@ typedef enum _snow_type_id {
 } snow_type_id;
 
 
-#define SNOW_SET_TYPEID(_that_, _type_id_)      (((struct snow_generic *)(_that_))->_type_id) = _type_id_
+#define SNOW_HEADER             \
+    uint8_t _type_id;           \
+    SNObject_ref _base
 
-
-typedef struct snow_generic*  snow_object;
-
-
-#define SNOW_NIL                ((snow_object) NULL)
+#define SNOW_NIL                                ((SNObject_ref)NULL)
 
 #define SNOW_TAG_BITS           2
 
@@ -67,61 +65,73 @@ typedef struct snow_generic*  snow_object;
 #define SNOW_STRING_TAG         snow_t_string
 #define SNOW_SYMBOL_TAG         snow_t_symbol
 
-#define SNOW_HEADER             \
-    uint8_t _type_id;           \
-    snow_object _base
+struct snow_generic_s {
+    SNOW_HEADER;
+};
 
-struct snow_cons {
+#define SNOW_SET_TYPEID(_that_, _type_id_)      (((SNObject_ref)(_that_))->_type_id) = _type_id_
+#define SNOW_OBJTYPE(_that_)                    (((SNObject_ref)(_that_))->_type_id)
+#define SNOW_NILP(_that_)                       (((SNObject_ref)(_that_)) == SNOW_NIL)
+
+struct snow_cons_s {
     SNOW_HEADER;
 
-    snow_object   _car;
-    snow_object   _cdr;
+    SNObject_ref   _car;
+    SNObject_ref   _cdr;
 };
-#define SNOW_CONS_CAR(_that_)       (((struct snow_cons *)(_that_))->_car)
-#define SNOW_CONS_CDR(_that_)       (((struct snow_cons *)(_that_))->_cdr)
+
+typedef struct snow_cons_s*  SNCons_ref;
+
+#define SNOW_CONS_CAR(_that_)                   (((SNCons_ref)(_that_))->_car)
+#define SNOW_CONS_CDR(_that_)                   (((SNCons_ref)(_that_))->_cdr)
+
+#define SNOW_LISTP(_that_)                      ( SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
+#define SNOW_CONSP(_that_)                      (!SNOW_NILP(_that_) && (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
 
 /*!
  * 
  */
-SNOW_API snow_object snow_make_cons(SNOW_ENV);
+SNOW_API SNObject_ref snow_make_cons(SNOW_ENV);
 
-struct snow_symbol {
+struct snow_symbol_s {
     SNOW_HEADER;
 
-    snow_object       _value;
-    snow_object       _fun;
-    snow_object       _name;
+    SNObject_ref       _value;
+    SNObject_ref       _fun;
+    SNObject_ref       _name;
 };
-#define SNOW_SYM_FUNC(_that_)       (((struct snow_symbol *)(_that_))_func)
 
-struct snow_single_float {
+typedef struct snow_symbol_s*  SNSymbol_ref;
+
+#define SNOW_SYM_FUNC(_that_)                   (((SNSymbol_ref)(_that_))_func)
+
+#define SNOW_SYMBOLP(_that_)                    (SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_SYMBOL_TAG))
+
+struct snow_single_float_s {
     SNOW_HEADER;
 
     float _val;
 };
-#define SNOW_SINGLE_FLOAT(_that_)   (((struct snow_single_float *)(_that_))->_val)
 
-struct snow_double_float {
+typedef struct snow_single_float_s*  SNSingleFloat_ref;
+
+#define SNOW_SINGLE_FLOAT(_that_)               (((SNSingleFloat_ref)(_that_))->_val)
+
+struct snow_double_float_s {
     SNOW_HEADER;
 
     double _val;
 };
-#define SNOW_DOUBLE_FLOAT(_that_)   (((struct snow_double_float *)(_that_))->_val)
 
-#define SNOW_OBJTYPE(_that_)        (((struct snow_generic *)(_that_))->_type_id)
-#define SNOW_NILP(_that_)           (((struct snow_generic *)(_that_)) == SNOW_NIL)
-#define SNOW_LISTP(_that_)          (SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
-#define SNOW_CONSP(_that_)          (!SNOW_NILP(_that_) && (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
-#define SNOW_SYMBOLP(_that_)        (SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_SYMBOL_TAG))
+typedef struct snow_double_float_s* SNDoubleFloat_ref;
 
-struct snow_generic {
-    SNOW_HEADER;
-};
-
-_END_C_EXTERN
+#define SNOW_DOUBLE_FLOAT(_that_)               (((SNDoubleFloat_ref)(_that_))->_val)
 
 
-#endif  /* object_h */
+_END_EXTERN_C
+
+
+#endif  /* snow_object_h */
 // Local Variables:
 //   coding: utf-8
 // End:

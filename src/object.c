@@ -22,25 +22,36 @@
 */
 #include "config.h"
 
+#ifdef HAVE_STDDEF_H
+#   include <stddef.h>
+#endif  /* def HAVE_STDDEF_H */
+#ifdef HAVE_STDINT_H
+#   include <stdint.h>
+#endif  /* def HAVE_STDINT_H */
+
+#include "snow/snow.h"
+
+#include "snow/environment.h"
 #include "snow/allocate.h"
+
 #include "snow/object.h"
 
 
-_BEGIN_C_EXTERN
+_BEGIN_EXTERN_C
 
 
-static snow_object snow_make_instace(uint8_t type_id)
+static SNObject_ref snow_make_instace(uint8_t type_id)
 {
-    snow_object ret;
+    SNObject_ref ret = SNOW_NIL;
 
     switch ( type_id ) {
         case snow_t_symbol:
-            ret = snow_alloc( sizeof(struct snow_symbol) );
-            SNOW_SET_TYPEID(ret, snow_t_symbol);
+            ret = snow_alloc( sizeof(struct snow_symbol_s) );
+            SNOW_SET_TYPEID(ret, type_id);
 
         case snow_t_cons:
-            ret = snow_alloc( sizeof(struct snow_cons) );
-            SNOW_SET_TYPEID(ret, snow_t_cons);
+            ret = snow_alloc( sizeof(struct snow_cons_s) );
+            SNOW_SET_TYPEID(ret, type_id);
 
         default:
             ret = SNOW_NIL;
@@ -50,16 +61,13 @@ static snow_object snow_make_instace(uint8_t type_id)
 }
 
 
-SNOW_API snow_object snow_make_cons(SNOW_ENV)
+SNOW_API SNObject_ref snow_make_cons(SNOW_ENV)
 {
     return snow_make_instance( snow_t_cons );
 }
 
 
-_END_C_EXTERN
-
-
-#endif  /* object_h */
+_END_EXTERN_C
 // Local Variables:
 //   coding: utf-8
 // End:

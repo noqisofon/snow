@@ -22,18 +22,32 @@
 */
 #include "config.h"
 
-#include "snow/object.h"
+
+#ifdef HAVE_STDDEF_H
+#   include <stddef.h>
+#endif  /* def HAVE_STDDEF_H */
+#ifdef HAVE_STDINT_H
+#   include <stdint.h>
+#endif  /* def HAVE_STDINT_H */
+
+#include "snow/snow.h"
+
+#include "snow/environment.h"
 #include "snow/allocate.h"
+#include "snow/object.h"
 
-_BEGIN_C_EXTERN
+#include "snow/builtin.h"
 
 
-SNOW_API void int snow_printf(SNOW_ENV, snow_object stream, )
+_BEGIN_EXTERN_C
+
+
+SNOW_API int snow_printf(SNOW_ENV, SNObject_ref stream, )
 {
 }
 
 
-SNOW_API void snow_object snow_cons(SNOW_ENV, snow_object car, snow_object cdr)
+SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr)
 {
     /* if ( env ) */
 
@@ -41,7 +55,7 @@ SNOW_API void snow_object snow_cons(SNOW_ENV, snow_object car, snow_object cdr)
 }
 
 
-_END_C_EXTERN
+_END_EXTERN_C
 
 
 // Local Variables:

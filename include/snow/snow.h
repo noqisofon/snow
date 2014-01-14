@@ -20,9 +20,8 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef snow_h
-#define snow_h
-
+#ifndef snow_snow_h
+#define snow_snow_h
 
 #ifndef TRUE
 #   define   TRUE    1
@@ -39,9 +38,16 @@
 #ifdef __cplusplus
 #   define    _BEGIN_EXTERN_C     extern "C" {
 #   define    _END_EXTERN_C       }
+#else
+#   define    _BEGIN_EXTERN_C
+#   define    _END_EXTERN_C
 #endif  /* def __cplusplus */
 
-#endif  /* snow_h */
+#define SNOW_API extern
+
+typedef struct snow_generic_s*  SNObject_ref;
+
+#endif  /* snow_snow_h */
 // Local Variables:
 //   coding: utf-8
 // End:

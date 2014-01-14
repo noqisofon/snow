@@ -30,7 +30,7 @@ _BEGIN_C_EXTERN
 /*!
  *
  */
-SNOW_API snow_object snow_cons(SNOW_ENV, snow_object car, snow_object cdr);
+SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr);
 
 
 _END_C_EXTERN

@@ -9,4 +9,4 @@ libsnow_la_DEPENDENXIES =
 
 libsnow_la_SOURCES = \
 	object.c \
-	buildin.c
+	builtin.c
