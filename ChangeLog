@@ -1,3 +1,63 @@
+commit ee4d034afa412e11b1e8122687efd616e4eb9266
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Thu Jan 16 05:51:04 2014 +0900
+
+    とりあえずビルドできるようにした
+
+ configure.ac           |  3 +++
+ include/snow/builtin.h |  4 ++--
+ snow.pc.in             | 10 +++++++++
+ src/Makefile.am        |  6 +++--
+ src/allocate.c         | 61 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/builtin.c          |  6 ++---
+ src/environment.c      | 45 +++++++++++++++++++++++++++++++++++++
+ 7 files changed, 128 insertions(+), 7 deletions(-)
+
+commit ef6b16acc3bc5b0b7d6e793fdcd24d57e87ae87d
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Wed Jan 15 06:27:35 2014 +0900
+
+    s/snow_object/SNObject_ref/
+
+ .gitignore                 |  2 +-
+ include/snow/Makefile.am   |  6 ++--
+ include/snow/allocate.h    | 42 +++++++++++++++++++++++
+ include/snow/builtin.h     |  2 +-
+ include/snow/environment.h | 12 ++++---
+ include/snow/object.h      | 84 ++++++++++++++++++++++++++--------------------
+ include/snow/snow.h        | 14 +++++---
+ src/Makefile.am            |  2 +-
+ src/builtin.c              | 24 ++++++++++---
+ src/object.c               | 32 +++++++++++-------
+ 10 files changed, 152 insertions(+), 68 deletions(-)
+
+commit b759df1bcbd896e9c5e654635351d655816c2e32
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Tue Jan 14 06:10:52 2014 +0900
+
+    s/buildin.h/builtin.h/
+
+ include/snow/Makefile.am | 10 +++++---
+ include/snow/builtin.h   | 42 ++++++++++++++++++++++++++++++
+ include/snow/buindin.h   | 39 ----------------------------
+ include/snow/object.h    | 43 +++++++++++++++++++++----------
+ src/Makefile.am          |  4 ++-
+ src/builtin.c            | 49 +++++++++++++++++++++++++++++++++++
+ src/object.c             | 66 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 196 insertions(+), 57 deletions(-)
+
+commit 666374b0812ec319b5ade09434bae460637e08f9
+Author: ned rihine <ned.rihine@gmail.com>
+Date:   Mon Jan 13 13:26:04 2014 +0900
+
+    buildin.h, environment.h を追加
+
+ .gitignore                 |  7 ++++++
+ ChangeLog                  | 56 ++++++++++++++++++++++++++++++++++++++++++++++
+ include/snow/buindin.h     | 39 ++++++++++++++++++++++++++++++++
+ include/snow/environment.h | 46 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 148 insertions(+)
+
 commit f959dde1f247d806814546eb39275ed7933004c4
 Author: ned rihine <ned.rihine@gmail.com>
 Date:   Mon Jan 13 11:23:16 2014 +0900
