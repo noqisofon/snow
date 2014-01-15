@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE@
+Description: @SNOW_DESCRIPTION@
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -lsnow
+Cflags: -I${includedir}

@@ -3,6 +3,8 @@
 
 AC_PREREQ([2.69])
 AC_INIT(snow, 0.1, ned.rihine@gmail.com)
+SNOW_DESCRIPTION='maybe common lisp'
+AC_SUBST(SNOW_DESCRIPTION)
 AC_CANONICAL_SYSTEM
 
 # Initialize Libtool
@@ -81,4 +83,5 @@ AC_CONFIG_FILES([Makefile
     include/Makefile
     include/snow/Makefile
     src/Makefile])
+AC_CONFIG_FILES([snow.pc:snow.pc.in])
 AC_OUTPUT

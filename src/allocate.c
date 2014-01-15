@@ -1,5 +1,5 @@
-/* 
-     builtin.c
+/*!
+  \file allocate.c
 */
 /* 
  Auther:
@@ -22,6 +22,9 @@
 */
 #include "config.h"
 
+#ifdef HAVE_MEMORY_H
+#   include <memory.h>
+#endif  /* def HAVE_MEMORY_H */
 #ifdef HAVE_STDDEF_H
 #   include <stddef.h>
 #endif  /* def HAVE_STDDEF_H */
@@ -32,26 +35,21 @@
 #include "snow/snow.h"
 
 #include "snow/environment.h"
-#include "snow/allocate.h"
 #include "snow/object.h"
 
-#include "snow/builtin.h"
+#include "snow/allocate.h"
 
 
 _BEGIN_EXTERN_C
 
 
-SNOW_API int snow_printf(SNOW_ENV, SNObject_ref stream, ...)
+SNOW_API SNObject_ref snow_alloc(size_t size)
 {
-    return 0;
-}
+    SNObject_ref  ret;
 
+    ret = (SNObject_ref)malloc( size );
 
-SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr)
-{
-    /* if ( env ) */
-
-    return SNOW_NIL;
+    return ret;
 }
 
 

@@ -1,5 +1,5 @@
-/* 
-     builtin.c
+/*!
+  \file allocate.c
 */
 /* 
  Auther:
@@ -32,27 +32,9 @@
 #include "snow/snow.h"
 
 #include "snow/environment.h"
-#include "snow/allocate.h"
-#include "snow/object.h"
-
-#include "snow/builtin.h"
 
 
 _BEGIN_EXTERN_C
-
-
-SNOW_API int snow_printf(SNOW_ENV, SNObject_ref stream, ...)
-{
-    return 0;
-}
-
-
-SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr)
-{
-    /* if ( env ) */
-
-    return SNOW_NIL;
-}
 
 
 _END_EXTERN_C

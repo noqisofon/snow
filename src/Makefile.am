@@ -8,5 +8,7 @@ libsnow_la_LIBADD =
 libsnow_la_DEPENDENXIES =
 
 libsnow_la_SOURCES = \
-	object.c \
-	builtin.c
+	allocate.c \
+	builtin.c \
+	environment.c \
+	object.c
