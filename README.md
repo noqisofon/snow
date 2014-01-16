@@ -5,7 +5,7 @@ Common Lisp の処理系だといいなーと思います。
 
 ## ビルド方法
 
-    % libtoolize && autoreconf
+    % libtoolize && automake -a && autoreconf
     % ./congigure
     % make
 
