@@ -41,10 +41,12 @@ config.h.in
 
 # 
 autom4te.cache/
-builds/
+builds/*
 .libs/
 .deps/
 
 # 
 include/config.h
 include/stamp-h1
+
+!.gitkeep
