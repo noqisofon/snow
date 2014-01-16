@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.69])
+AC_PREREQ([2.68])
 AC_INIT(snow, 0.1, ned.rihine@gmail.com)
 SNOW_DESCRIPTION='maybe common lisp'
 AC_SUBST(SNOW_DESCRIPTION)
