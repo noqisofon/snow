@@ -1,3 +1,2 @@
+# -*- coding: utf-8; -*-
 SUBDIRS = snow
-
-libsnow_includedir = $(includedir)/

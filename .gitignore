@@ -7,15 +7,19 @@
 # Mac OS X files
 .DS_Store
 
-#
+# 
 *.log
+*.sh
+*.txt
+
+# Build result files
 *.la
 *.lo
 *.o
 *.a
 *.so
 
-# Autotools 
+# Autotools result files
 compile
 config.guess
 config.sub
