@@ -1,5 +1,5 @@
-/* 
-     snow.h
+/*
+  \file snow.h
 */
 /* 
  Auther:

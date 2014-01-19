@@ -1,5 +1,5 @@
-/* 
-     allocate.h
+/*!
+   \file allocate.h
 */
 /* 
  Auther:
@@ -30,7 +30,19 @@ _BEGIN_EXTERN_C
 /*!
  *
  */
-SNOW_API SNObject_ref snow_alloc(size_t size);
+SNOW_API void* snow_malloc(SNOW_ENV, size_t size);
+
+
+/*!
+ *
+ */
+SNOW_API void* snow_atomic_malloc(SNOW_ENV, size_t size);
+
+
+/*!
+ *
+ */
+SNOW_API void snow_free(SNOW_ENV, void* memp);
 
 
 _END_EXTERN_C

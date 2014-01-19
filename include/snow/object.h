@@ -1,6 +1,9 @@
-/* 
-     object.h   - data structures
-*/
+/*!
+ * \file object.h
+ * \brief Lisp のデータ構造を表す構造体とそれに関係する関数やマクロ。
+ * \author ned rihine
+ * \date 2014
+ */
 /* 
  Auther:
       ned rihine <ned.rihine@gmail.com>
@@ -23,113 +26,49 @@
 #ifndef snow_object_h
 #define snow_object_h
 
-
 _BEGIN_EXTERN_C
 
 
-typedef enum _snow_type_id {
-    snow_t_nil          = 0,
-    snow_t_object       = 1,
-    snow_t_charater     = 2,
-    snow_t_fixnum       = 3,
+typedef enum snow_type_id {
+    kSnow_TypeID_NIL          = 0,
+    kSnow_TypeID_ATOM         = 1,
+    kSnow_TypeID_CONS         = (1 << 1) | Snow_TypeID_ATOM,
+    kSnow_TypeID_CHARACTER    = (1 << 2) | Snow_TypeID_ATOM,
+    kSnow_TypeID_NUMERIC      = (1 << 3) | Snow_TypeID_ATOM,
+    kSnow_TypeID_BOOLEAN      = (1 << 4) | Snow_TypeID_ATOM,
+} Snow_TypeID;
 
-    snow_t_symbol       = (  1 << 2 ) | snow_t_object,
-    snow_t_cons         = (  2 << 2 ) | snow_t_object,
-    snow_t_string       = (  3 << 2 ) | snow_t_object,
-    snow_t_vector       = (  4 << 2 ) | snow_t_object,
-    snow_t_cfunction    = (  5 << 2 ) | snow_t_object,
-    snow_t_cclosure     = (  6 << 2 ) | snow_t_object,
-
-    snow_t_bignum       = (  7 << 2 ) | snow_t_object,
-    snow_t_ration       = (  8 << 2 ) | snow_t_object,
-    snow_t_single_float = (  9 << 2 ) | snow_t_object,
-    snow_t_double_float = ( 10 << 2 ) | snow_t_object,
-    snow_t_long_float   = ( 11 << 2 ) | snow_t_object,
-    snow_t_complex      = ( 12 << 2 ) | snow_t_object,
-
-    snow_t_namespace    = ( 13 << 2 ) | snow_t_object,
-    snow_t_stream       = ( 14 << 2 ) | snow_t_object,
-} snow_type_id;
-
-
-#define SNOW_HEADER             \
-    uint8_t _type_id;           \
-    SNObject_ref _base
-
-#define SNOW_NIL                                ((SNObject_ref)NULL)
-
-#define SNOW_TAG_BITS           2
-
-#define SNOW_CHARACTER_TAG      snow_t_charater
-#define SNOW_FIXNUM_TAG         snow_t_fixnum
-#define SNOW_STRING_TAG         snow_t_string
-#define SNOW_SYMBOL_TAG         snow_t_symbol
-
-struct snow_generic_s {
-    SNOW_HEADER;
-};
-
-#define SNOW_SET_TYPEID(_that_, _type_id_)      (((SNObject_ref)(_that_))->_type_id) = _type_id_
-#define SNOW_OBJTYPE(_that_)                    (((SNObject_ref)(_that_))->_type_id)
-#define SNOW_NILP(_that_)                       (((SNObject_ref)(_that_)) == SNOW_NIL)
-
-struct snow_cons_s {
-    SNOW_HEADER;
-
-    SNObject_ref   _car;
-    SNObject_ref   _cdr;
-};
-
-typedef struct snow_cons_s*  SNCons_ref;
-
-#define SNOW_CONS_CAR(_that_)                   (((SNCons_ref)(_that_))->_car)
-#define SNOW_CONS_CDR(_that_)                   (((SNCons_ref)(_that_))->_cdr)
-
-#define SNOW_LISTP(_that_)                      ( SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
-#define SNOW_CONSP(_that_)                      (!SNOW_NILP(_that_) && (SNOW_OBJTYPE(_that_) == SNOW_CONS_TAG))
 
 /*!
+ * \def SNOW_STRUCT_HEADER
+ * \brief Lisp 用のデータ構造を表す構造体の既定メンバーを宣言するマクロ。
+ *
  * 
  */
-SNOW_API SNObject_ref snow_make_cons(SNOW_ENV);
+#define SNOW_STRUCT_HEADER                      \
+    uint8_t     _type_id;                       \
+    SNAtom_ref  _base
 
-struct snow_symbol_s {
-    SNOW_HEADER;
-
-    SNObject_ref       _value;
-    SNObject_ref       _fun;
-    SNObject_ref       _name;
+/*!
+ * \struct snow_lisp_val_s object.h
+ * \brief Lisp オブジェクトの先頭部分。
+ * 
+ * snow_lisp_val_s 構造体は Lisp オブジェクトの先頭部分を表します。
+ * 
+ */
+struct snow_lisp_val_s {
+    SNOW_STRUCT_HEADER;
 };
 
-typedef struct snow_symbol_s*  SNSymbol_ref;
 
-#define SNOW_SYM_FUNC(_that_)                   (((SNSymbol_ref)(_that_))_func)
-
-#define SNOW_SYMBOLP(_that_)                    (SNOW_NILP(_that_) || (SNOW_OBJTYPE(_that_) == SNOW_SYMBOL_TAG))
-
-struct snow_single_float_s {
-    SNOW_HEADER;
-
-    float _val;
-};
-
-typedef struct snow_single_float_s*  SNSingleFloat_ref;
-
-#define SNOW_SINGLE_FLOAT(_that_)               (((SNSingleFloat_ref)(_that_))->_val)
-
-struct snow_double_float_s {
-    SNOW_HEADER;
-
-    double _val;
-};
-
-typedef struct snow_double_float_s* SNDoubleFloat_ref;
-
-#define SNOW_DOUBLE_FLOAT(_that_)               (((SNDoubleFloat_ref)(_that_))->_val)
-
+/*!
+ * \typedef SNAtom_ref
+ * \brief 
+ * 
+ */
+typedef struct snow_lisp_val_s*   SNAtom_ref;
 
 _END_EXTERN_C
-
 
 #endif  /* snow_object_h */
 // Local Variables:
