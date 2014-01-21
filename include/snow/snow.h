@@ -45,8 +45,6 @@
 
 #define SNOW_API extern
 
-typedef struct snow_generic_s*  SNObject_ref;
-
 #endif  /* snow_snow_h */
 // Local Variables:
 //   coding: utf-8

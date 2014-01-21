@@ -29,6 +29,10 @@
 _BEGIN_EXTERN_C
 
 
+/*!
+ * \typedef Snow_TypeID object.h
+ * \brief snow の型 ID 用の列挙体。
+ */
 typedef enum snow_type_id {
     kSnow_TypeID_NIL          = 0,
     kSnow_TypeID_ATOM         = 1,
@@ -46,8 +50,8 @@ typedef enum snow_type_id {
  * 
  */
 #define SNOW_STRUCT_HEADER                      \
-    uint8_t     _type_id;                       \
-    SNAtom_ref  _base
+    uint8_t     type_id;                       \
+    SNAtom_ref  base
 
 /*!
  * \struct snow_lisp_val_s object.h
@@ -60,13 +64,38 @@ struct snow_lisp_val_s {
     SNOW_STRUCT_HEADER;
 };
 
-
 /*!
- * \typedef SNAtom_ref
- * \brief 
+ * \typedef SNAtom_ref object.h
+ * \brief アトムへの参照型(ポインタ)。
  * 
  */
 typedef struct snow_lisp_val_s*   SNAtom_ref;
+
+
+/*!
+ * \struct snow_cons_s object.h
+ * \brief CONS セルを表す構造体。
+ */
+struct snow_cons_s {
+    SNOW_STRUCT_HEADER;
+
+    SNAtom_ref   car;
+    SNAtom_ref   cdr;
+};
+
+/*!
+ * \typedef SNCons_ref object.h
+ * \brief アトムへの参照型(ポインタ)。
+ * 
+ */
+typedef struct snow_cons_s*  SNCons_ref;
+
+
+/*!
+ *
+ */
+SNOW_API SNCons_ref snow_make_cons(SNAtom_ref car, SNAtom_ref cdr);
+
 
 _END_EXTERN_C
 
