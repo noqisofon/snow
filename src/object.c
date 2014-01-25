@@ -37,7 +37,7 @@
 #include "snow/object.h"
 
 
-_BEGIN_EXTERN_C
+SNOW_EXTERN_C_BEGIN
 
 
 static SNObject_ref snow_make_instace(uint8_t type_id)
@@ -67,7 +67,7 @@ SNOW_API SNObject_ref snow_make_cons(SNOW_ENV)
 }
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 // Local Variables:
 //   coding: utf-8
 // End:

@@ -23,6 +23,13 @@
 #ifndef snow_snow_h
 #define snow_snow_h
 
+#include <sys/types.h>
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
 #ifndef TRUE
 #   define   TRUE    1
 #endif  /* ndef TRUE */
@@ -36,14 +43,31 @@
 #endif  /* ndef __cplusplus */
 
 #ifdef __cplusplus
-#   define    _BEGIN_EXTERN_C     extern "C" {
-#   define    _END_EXTERN_C       }
+#   define    SNOW_EXTERN_C_BEGIN     extern "C" {
+#   define    SNOW_EXTERN_C_END       }
 #else
-#   define    _BEGIN_EXTERN_C
-#   define    _END_EXTERN_C
+#   define    SNOW_EXTERN_C_BEGIN
+#   define    SNOW_EXTERN_C_END
 #endif  /* def __cplusplus */
 
-#define SNOW_API extern
+#if defined(SNOW_TARGET_OS_WIN32)
+#   if !defined(SNOW_API)
+#   elif defined(SNOW_BUILDING) && defined(__cplusplus)
+#       define SNOW_API    extern "C" __declspec(dllexport)
+#   elif defined(SNOW_BUILDING) &&!defined(__cplusplus)
+#       define SNOW_API    extern     __declspec(dllexport)
+#   elif defined(__cplusplus)
+#       define SNOW_API    extern     __declspec(dllimport)
+#   elif !defined(__cplusplus)
+#       define SNOW_API    extern "C" __declspec(dllimport)
+#   else
+#       define SNOW_API    extern
+#   endif  /* !defined(SNOW_API) */
+#else
+#   define SNOW_API        extern
+#endif  /* defined(SNOW_TARGET_OS_WIN32) */
+
+#include <snow/object.h>
 
 #endif  /* snow_snow_h */
 // Local Variables:

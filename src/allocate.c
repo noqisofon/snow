@@ -40,7 +40,7 @@
 #include "snow/allocate.h"
 
 
-_BEGIN_EXTERN_C
+SNOW_EXTERN_C_BEGIN
 
 
 SNOW_API SNObject_ref snow_alloc(size_t size)
@@ -53,7 +53,7 @@ SNOW_API SNObject_ref snow_alloc(size_t size)
 }
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 
 
 // Local Variables:

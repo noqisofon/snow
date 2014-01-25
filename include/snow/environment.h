@@ -24,7 +24,7 @@
 #define snow_environment_h
 
 
-_BEGIN_EXTERN_C
+SNOW_EXTERN_C_BEGIN
 
 
 struct snow_env_s {
@@ -39,7 +39,7 @@ typedef    struct snow_env_s*   SNEnvironment_ref;
 #define SNOW_ENV    const SNEnvironment_ref env
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 
 
 #endif  /* snow_environment_h */

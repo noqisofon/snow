@@ -24,7 +24,7 @@
 #define snow_allocate_h
 
 
-_BEGIN_EXTERN_C
+SNOW_EXTERN_C_BEGIN
 
 
 /*!
@@ -45,7 +45,7 @@ SNOW_API void* snow_atomic_malloc(SNOW_ENV, size_t size);
 SNOW_API void snow_free(SNOW_ENV, void* memp);
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 
 
 #endif  /* snow_allocate_h */

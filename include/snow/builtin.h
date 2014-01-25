@@ -24,7 +24,7 @@
 #define snow_builtin_h
 
 
-_BEGIN_EXTERN_C
+SNOW_EXTERN_C_BEGIN
 
 
 /*!
@@ -33,7 +33,7 @@ _BEGIN_EXTERN_C
 SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr);
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 
 
 #endif  /* snow_builtin_h */

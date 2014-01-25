@@ -1,5 +1,5 @@
 /* 
-     builtin.c
+   \def builtin.c
 */
 /* 
  Auther:
@@ -38,7 +38,7 @@
 #include "snow/builtin.h"
 
 
-_BEGIN_EXTERN_C
+SNOW_EXTERN_C_BEGIN
 
 
 SNOW_API int snow_printf(SNOW_ENV, SNObject_ref stream, ...)
@@ -55,7 +55,7 @@ SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr)
 }
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 
 
 // Local Variables:

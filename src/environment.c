@@ -34,10 +34,10 @@
 #include "snow/environment.h"
 
 
-_BEGIN_EXTERN_C
+SNOW_EXTERN_C_BEGIN
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 
 
 // Local Variables:

@@ -26,7 +26,8 @@
 #ifndef snow_object_h
 #define snow_object_h
 
-_BEGIN_EXTERN_C
+
+SNOW_EXTERN_C_BEGIN
 
 
 /*!
@@ -97,7 +98,7 @@ typedef struct snow_cons_s*  SNCons_ref;
 SNOW_API SNCons_ref snow_make_cons(SNAtom_ref car, SNAtom_ref cdr);
 
 
-_END_EXTERN_C
+SNOW_EXTERN_C_END
 
 #endif  /* snow_object_h */
 // Local Variables:
