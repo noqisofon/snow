@@ -1,5 +1,7 @@
 /*
-  \file snow.h
+  \file _system.h
+  \since 2014
+  \brief 
 */
 /* 
  Auther:
@@ -20,41 +22,19 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef snow_snow_h
-#define snow_snow_h
+#ifndef snow_config__window_h
+#define snow_config__window_h
 
-#include <sys/types.h>
+#ifndef SNOW_PLATFORM
+#   defined SNOW_PLATFORM   "Windows"
+#endif  /* ndef SNOW_PLATFORM */
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#ifndef SNOW_WIN32_VERSION
+#   if defined(_WINVER)
+#       define    SNOW_WIN32_VERSION    _WINVER
+#   elif defined(_WIN32_WINDOWS)
+#       define    SNOW_WIN32_VERSION    _WIN32_WINDOWS
+#   endif  /* defined(_WINVER) */
+#endif  /* ndef SNOW_WIN32_VERSION */
 
-#ifndef TRUE
-#   define   TRUE    1
-#endif  /* ndef TRUE */
-
-#ifndef FALSE
-#   define   FALSE   0
-#endif  /* ndef TRUE */
-
-#ifndef __cplusplus
-#   include <stdbool.h>
-#endif  /* ndef __cplusplus */
-
-#if defined(__cplusplus)
-#   define SNOW_EXTERN_C_BEGIN    extern "C" {
-#   define SNOW_EXTERN_C_END      }
-#else
-#   define SNOW_EXTERN_C_BEGIN
-#   define SNOW_EXTERN_C_END
-#endif  /* defined(__cplusplus) */
-
-#include <snow/config/_system.h>
-
-#include <snow/object.h>
-
-#endif  /* snow_snow_h */
-// Local Variables:
-//   coding: utf-8
-// End:
+#endif  /* snow_config__window_h */
