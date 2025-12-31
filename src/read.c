@@ -27,7 +27,9 @@ SNOW_API SNObject_ref snow_read(SNOW_ENV, FILE* stream) {
     skip_whitespace(stream);
     int c = getc(stream);
 
-    if (c == EOF) return SNOW_NIL;
+    if (c == EOF) {
+        return SNOW_NIL;
+    }
 
     if (c == '(') {
         // Read list
@@ -84,7 +86,9 @@ SNOW_API SNObject_ref snow_read(SNOW_ENV, FILE* stream) {
                 ungetc(c, stream);
                 break;
             }
-            if (i < 255) buffer[i++] = c;
+            if (i < 255) {
+                buffer[i++] = c;
+            }
         }
         buffer[i] = '\0';
 

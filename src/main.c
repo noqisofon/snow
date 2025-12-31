@@ -16,7 +16,9 @@ int main(int argc, char** argv) {
         printf("> ");
         fflush(stdout);
         SNObject_ref expr = snow_read(env, stdin);
-        if (feof(stdin)) break;
+        if (feof(stdin)) {
+            break;
+        }
 
         SNObject_ref result = snow_eval(env, expr);
         snow_print(env, result);
