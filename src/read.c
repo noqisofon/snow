@@ -1,4 +1,5 @@
 #include "config.h"
+#include <stdio.h>
 #include <snow/read.h>
 #include <snow/object.h>
 #include <snow/allocate.h>
@@ -29,6 +30,14 @@ SNOW_API SNObject_ref snow_read(SNOW_ENV, FILE* stream) {
 
     if (c == EOF) {
         return SNOW_NIL;
+    }
+
+    if (c == '\'') {
+        // Quote expansion: 'foo -> (quote foo)
+        SNObject_ref quoted_expr = snow_read(env, stream);
+        SNObject_ref quote_sym = snow_make_symbol(env, "quote");
+        SNObject_ref list = snow_make_cons(env, quoted_expr, SNOW_NIL);
+        return snow_make_cons(env, quote_sym, list);
     }
 
     if (c == '(') {

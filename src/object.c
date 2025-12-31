@@ -56,6 +56,11 @@ static SNObject_ref snow_make_instance(SNOW_ENV, uint8_t type_id)
             SNOW_SET_TYPEID(ret, type_id);
             break;
 
+        case SNOW_TYPE_BUILTIN:
+            ret = (SNObject_ref)snow_malloc(env, sizeof(struct snow_builtin_s) );
+            SNOW_SET_TYPEID(ret, type_id);
+            break;
+
         default:
             ret = SNOW_NIL;
     }
@@ -86,6 +91,19 @@ SNOW_API SNObject_ref snow_make_symbol(SNOW_ENV, const char* name)
     return (SNObject_ref)sym;
 }
 
+SNOW_API SNObject_ref snow_make_builtin(SNOW_ENV, SNBuiltinFunc func, const char* name)
+{
+    struct snow_builtin_s* b = (struct snow_builtin_s*)snow_make_instance(env, SNOW_TYPE_BUILTIN);
+    b->func = func;
+    if (name) {
+        size_t len = strlen(name);
+        b->name = (char*)snow_malloc(env, len + 1);
+        strcpy(b->name, name);
+    } else {
+        b->name = NULL;
+    }
+    return (SNObject_ref)b;
+}
 
 SNOW_EXTERN_C_END
 // Local Variables:

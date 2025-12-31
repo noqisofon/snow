@@ -2,8 +2,26 @@
 #include <snow/eval.h>
 #include <snow/object.h>
 #include <snow/environment.h>
+#include <string.h>
 
 SNOW_EXTERN_C_BEGIN
+
+static SNObject_ref eval_list(SNOW_ENV, SNObject_ref list) {
+    if (list == SNOW_NIL) {
+        return SNOW_NIL;
+    }
+    if (((struct snow_lisp_val_s*)list)->type_id != SNOW_TYPE_CONS) {
+        return list; // Should not happen if list is proper
+    }
+
+    SNObject_ref car = ((SNCons_ref)list)->car;
+    SNObject_ref cdr = ((SNCons_ref)list)->cdr;
+
+    SNObject_ref evaluated_car = snow_eval(env, car);
+    SNObject_ref evaluated_cdr = eval_list(env, cdr);
+
+    return snow_make_cons(env, evaluated_car, evaluated_cdr);
+}
 
 SNOW_API SNObject_ref snow_eval(SNOW_ENV, SNObject_ref form) {
     if (form == SNOW_NIL) {
@@ -13,17 +31,48 @@ SNOW_API SNObject_ref snow_eval(SNOW_ENV, SNObject_ref form) {
     if (form->type_id == SNOW_TYPE_SYMBOL) {
         // Variable lookup
         SNObject_ref val = snow_env_lookup(env, form);
-        // If not found, currently returns NIL. In real Lisp, this is an error.
-        // But for now, returning NIL or self might be confusing.
-        // Let's assume NIL means unbound for this simple stage, or just return the result.
-        // Actually, if it's not found, maybe we should print a warning?
-        // Or for now, just return NIL if not found.
         return val;
     }
 
-    // Self-evaluating objects (Cons, numbers, etc. - Cons should be function call but not yet implemented)
-    // For now, Cons evaluates to itself (like quote)
+    if (form->type_id == SNOW_TYPE_CONS) {
+        // Function application or Special Form
+        SNObject_ref fn_expr = ((SNCons_ref)form)->car;
+        SNObject_ref args = ((SNCons_ref)form)->cdr;
 
+        // Check for Special Forms (quote) BEFORE evaluating operator
+        // Since we don't have a robust symbol checking (no interning), string comparison for now.
+        if (fn_expr->type_id == SNOW_TYPE_SYMBOL) {
+            struct snow_symbol_s* sym = (struct snow_symbol_s*)fn_expr;
+            if (sym->name && strcmp(sym->name, "quote") == 0) {
+                // (quote expr) -> expr
+                // args is (expr)
+                if (args != SNOW_NIL && args->type_id == SNOW_TYPE_CONS) {
+                    return ((SNCons_ref)args)->car;
+                }
+                return SNOW_NIL; // Malformed quote
+            }
+        }
+
+        // 1. Evaluate operator
+        SNObject_ref fn = snow_eval(env, fn_expr);
+
+        // 2. Check if it is a builtin function
+        if (fn != SNOW_NIL && ((struct snow_lisp_val_s*)fn)->type_id == SNOW_TYPE_BUILTIN) {
+            // 3. Evaluate arguments
+            SNObject_ref eval_args = eval_list(env, args);
+
+            // 4. Apply
+            struct snow_builtin_s* builtin = (struct snow_builtin_s*)fn;
+            if (builtin->func) {
+                return builtin->func(env, eval_args);
+            }
+        }
+
+        // If not a function, for now just return the form or error.
+        return form;
+    }
+
+    // Self-evaluating objects
     return form;
 }
 

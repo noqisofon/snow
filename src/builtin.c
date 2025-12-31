@@ -40,20 +40,46 @@
 
 SNOW_EXTERN_C_BEGIN
 
-
-SNOW_API int snow_printf(SNOW_ENV, SNObject_ref stream, ...)
-{
-    return 0;
-}
-
-
-SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr)
-{
-    /* if ( env ) */
-
+/* Helper to get Nth argument */
+static SNObject_ref get_arg(SNObject_ref args, int index) {
+    SNObject_ref curr = args;
+    for (int i = 0; i < index; ++i) {
+        if (curr == SNOW_NIL || ((struct snow_lisp_val_s*)curr)->type_id != SNOW_TYPE_CONS) {
+            return SNOW_NIL;
+        }
+        curr = ((SNCons_ref)curr)->cdr;
+    }
+    if (curr != SNOW_NIL && ((struct snow_lisp_val_s*)curr)->type_id == SNOW_TYPE_CONS) {
+        return ((SNCons_ref)curr)->car;
+    }
     return SNOW_NIL;
 }
 
+
+SNOW_API SNObject_ref snow_builtin_car(SNOW_ENV, SNObject_ref args)
+{
+    SNObject_ref obj = get_arg(args, 0);
+    if (obj != SNOW_NIL && ((struct snow_lisp_val_s*)obj)->type_id == SNOW_TYPE_CONS) {
+        return ((SNCons_ref)obj)->car;
+    }
+    return SNOW_NIL;
+}
+
+SNOW_API SNObject_ref snow_builtin_cdr(SNOW_ENV, SNObject_ref args)
+{
+    SNObject_ref obj = get_arg(args, 0);
+    if (obj != SNOW_NIL && ((struct snow_lisp_val_s*)obj)->type_id == SNOW_TYPE_CONS) {
+        return ((SNCons_ref)obj)->cdr;
+    }
+    return SNOW_NIL;
+}
+
+SNOW_API SNObject_ref snow_builtin_cons(SNOW_ENV, SNObject_ref args)
+{
+    SNObject_ref car = get_arg(args, 0);
+    SNObject_ref cdr = get_arg(args, 1);
+    return snow_make_cons(env, car, cdr);
+}
 
 SNOW_EXTERN_C_END
 

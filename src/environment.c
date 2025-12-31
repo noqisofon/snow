@@ -39,7 +39,7 @@
 SNOW_EXTERN_C_BEGIN
 
 SNOW_API SNEnvironment_ref snow_env_create(SNEnvironment_ref parent) {
-    SNEnvironment_ref new_env = (SNEnvironment_ref)malloc(sizeof(struct snow_env_s));
+    SNEnvironment_ref new_env = (SNEnvironment_ref)snow_malloc(parent, sizeof(struct snow_env_s));
     if (new_env) {
         new_env->_disable_interrupts = 0;
         new_env->bindings = SNOW_NIL;

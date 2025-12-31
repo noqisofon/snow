@@ -49,6 +49,7 @@ typedef enum snow_type_id {
     SNOW_TYPE_NUMERIC      = (1 << 3) | SNOW_TYPE_ATOM,
     SNOW_TYPE_BOOLEAN      = (1 << 4) | SNOW_TYPE_ATOM,
     SNOW_TYPE_SYMBOL       = (1 << 5) | SNOW_TYPE_ATOM,
+    SNOW_TYPE_BUILTIN      = (1 << 6) | SNOW_TYPE_ATOM,
 } Snow_TypeID;
 
 /*!
@@ -72,6 +73,12 @@ typedef struct snow_lisp_val_s* SNObject_ref;
  * 
  */
 typedef SNObject_ref SNAtom_ref;
+
+/*!
+ * \typedef SNBuiltinFunc object.h
+ * \brief Builtin function pointer type.
+ */
+typedef SNObject_ref (*SNBuiltinFunc)(SNOW_ENV, SNObject_ref args);
 
 
 /*!
@@ -117,6 +124,17 @@ struct snow_symbol_s {
     char* name;
 };
 
+/*!
+ * \struct snow_builtin_s object.h
+ * \brief Builtin function object.
+ */
+struct snow_builtin_s {
+    SNOW_STRUCT_HEADER;
+    SNBuiltinFunc func;
+    char* name;
+};
+
+
 #define SNOW_SET_TYPEID(obj, id)  ((obj)->type_id = (id))
 #define SNOW_NIL NULL
 
@@ -129,6 +147,11 @@ SNOW_API SNObject_ref snow_make_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cd
  *
  */
 SNOW_API SNObject_ref snow_make_symbol(SNOW_ENV, const char* name);
+
+/*!
+ *
+ */
+SNOW_API SNObject_ref snow_make_builtin(SNOW_ENV, SNBuiltinFunc func, const char* name);
 
 
 SNOW_EXTERN_C_END
