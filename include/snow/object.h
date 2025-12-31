@@ -35,24 +35,14 @@ SNOW_EXTERN_C_BEGIN
  * \brief snow の型 ID 用の列挙体。
  */
 typedef enum snow_type_id {
-    kSnow_TypeID_NIL          = 0,
-    kSnow_TypeID_ATOM         = 1,
-    kSnow_TypeID_CONS         = (1 << 1) | Snow_TypeID_ATOM,
-    kSnow_TypeID_CHARACTER    = (1 << 2) | Snow_TypeID_ATOM,
-    kSnow_TypeID_NUMERIC      = (1 << 3) | Snow_TypeID_ATOM,
-    kSnow_TypeID_BOOLEAN      = (1 << 4) | Snow_TypeID_ATOM,
+    SNOW_TYPE_NIL          = 0,
+    SNOW_TYPE_ATOM         = 1,
+    SNOW_TYPE_CONS         = (1 << 1) | SNOW_TYPE_ATOM,
+    SNOW_TYPE_CHARACTER    = (1 << 2) | SNOW_TYPE_ATOM,
+    SNOW_TYPE_NUMERIC      = (1 << 3) | SNOW_TYPE_ATOM,
+    SNOW_TYPE_BOOLEAN      = (1 << 4) | SNOW_TYPE_ATOM,
+    SNOW_TYPE_SYMBOL       = (1 << 5) | SNOW_TYPE_ATOM,
 } Snow_TypeID;
-
-
-/*!
- * \def SNOW_STRUCT_HEADER
- * \brief Lisp 用のデータ構造を表す構造体の既定メンバーを宣言するマクロ。
- *
- * 
- */
-#define SNOW_STRUCT_HEADER                      \
-    uint8_t     type_id;                       \
-    SNAtom_ref  base
 
 /*!
  * \struct snow_lisp_val_s object.h
@@ -61,16 +51,35 @@ typedef enum snow_type_id {
  * snow_lisp_val_s 構造体は Lisp オブジェクトの先頭部分を表します。
  * 
  */
-struct snow_lisp_val_s {
-    SNOW_STRUCT_HEADER;
-};
+struct snow_lisp_val_s;
+
+/*!
+ * \typedef SNObject_ref object.h
+ * \brief オブジェクトへの参照型(ポインタ)。
+ */
+typedef struct snow_lisp_val_s* SNObject_ref;
 
 /*!
  * \typedef SNAtom_ref object.h
  * \brief アトムへの参照型(ポインタ)。
  * 
  */
-typedef struct snow_lisp_val_s*   SNAtom_ref;
+typedef SNObject_ref SNAtom_ref;
+
+
+/*!
+ * \def SNOW_STRUCT_HEADER
+ * \brief Lisp 用のデータ構造を表す構造体の既定メンバーを宣言するマクロ。
+ *
+ *
+ */
+#define SNOW_STRUCT_HEADER                      \
+    uint8_t     type_id;                       \
+    SNObject_ref  base
+
+struct snow_lisp_val_s {
+    SNOW_STRUCT_HEADER;
+};
 
 
 /*!
@@ -80,22 +89,39 @@ typedef struct snow_lisp_val_s*   SNAtom_ref;
 struct snow_cons_s {
     SNOW_STRUCT_HEADER;
 
-    SNAtom_ref   car;
-    SNAtom_ref   cdr;
+    SNObject_ref   car;
+    SNObject_ref   cdr;
 };
 
 /*!
  * \typedef SNCons_ref object.h
- * \brief アトムへの参照型(ポインタ)。
+ * \brief Consへの参照型(ポインタ)。
  * 
  */
 typedef struct snow_cons_s*  SNCons_ref;
 
 
 /*!
+ * \struct snow_symbol_s object.h
+ * \brief Symbolを表す構造体。
+ */
+struct snow_symbol_s {
+    SNOW_STRUCT_HEADER;
+    char* name;
+};
+
+#define SNOW_SET_TYPEID(obj, id)  ((obj)->type_id = (id))
+#define SNOW_NIL NULL
+
+/*!
  *
  */
-SNOW_API SNCons_ref snow_make_cons(SNAtom_ref car, SNAtom_ref cdr);
+SNOW_API SNObject_ref snow_make_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr);
+
+/*!
+ *
+ */
+SNOW_API SNObject_ref snow_make_symbol(SNOW_ENV, const char* name);
 
 
 SNOW_EXTERN_C_END

@@ -5,4 +5,7 @@ libsnow_include_HEADERS = \
 	object.h \
 	builtin.h \
 	environment.h  \
-	allocate.h
+	allocate.h \
+	read.h \
+	print.h \
+	eval.h

@@ -11,4 +11,11 @@ libsnow_la_SOURCES = \
 	allocate.c \
 	builtin.c \
 	environment.c \
-	object.c
+	object.c \
+	read.c \
+	print.c \
+	eval.c
+
+bin_PROGRAMS = snow
+snow_SOURCES = main.c
+snow_LDADD = libsnow.la
