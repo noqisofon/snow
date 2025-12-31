@@ -29,6 +29,13 @@
 
 SNOW_EXTERN_C_BEGIN
 
+/* Forward declarations for Environment to break circular dependency */
+struct snow_env_s;
+typedef struct snow_env_s* SNEnvironment_ref;
+
+#ifndef SNOW_ENV
+#define SNOW_ENV    const SNEnvironment_ref env
+#endif
 
 /*!
  * \typedef Snow_TypeID object.h

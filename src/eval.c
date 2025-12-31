@@ -1,6 +1,7 @@
 #include "config.h"
 #include <snow/eval.h>
 #include <snow/object.h>
+#include <snow/environment.h>
 
 SNOW_EXTERN_C_BEGIN
 
@@ -9,10 +10,20 @@ SNOW_API SNObject_ref snow_eval(SNOW_ENV, SNObject_ref form) {
         return SNOW_NIL;
     }
 
-    // Minimal eval: if symbol, lookup (not implemented). if cons, apply (not implemented).
-    // if self-evaluating (not implemented), return self.
+    if (form->type_id == SNOW_TYPE_SYMBOL) {
+        // Variable lookup
+        SNObject_ref val = snow_env_lookup(env, form);
+        // If not found, currently returns NIL. In real Lisp, this is an error.
+        // But for now, returning NIL or self might be confusing.
+        // Let's assume NIL means unbound for this simple stage, or just return the result.
+        // Actually, if it's not found, maybe we should print a warning?
+        // Or for now, just return NIL if not found.
+        return val;
+    }
 
-    // For now, just return the form.
+    // Self-evaluating objects (Cons, numbers, etc. - Cons should be function call but not yet implemented)
+    // For now, Cons evaluates to itself (like quote)
+
     return form;
 }
 
