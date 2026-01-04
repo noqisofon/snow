@@ -4,13 +4,20 @@
 #include <snow/read.h>
 #include <snow/eval.h>
 #include <snow/print.h>
+#include <snow/environment.h>
+#include <snow/object.h>
+#include <snow/builtin.h>
 
 int main(int argc, char** argv) {
     printf("Welcome to snow Lisp!\n");
 
-    // Environment dummy for now
-    struct snow_env_s env_struct;
-    SNEnvironment_ref env = &env_struct;
+    // Create actual environment
+    SNEnvironment_ref env = snow_env_create(NULL);
+
+    // Register builtins
+    snow_env_bind(env, snow_make_symbol(env, "car"), snow_make_builtin(env, snow_builtin_car, "car"));
+    snow_env_bind(env, snow_make_symbol(env, "cdr"), snow_make_builtin(env, snow_builtin_cdr, "cdr"));
+    snow_env_bind(env, snow_make_symbol(env, "cons"), snow_make_builtin(env, snow_builtin_cons, "cons"));
 
     while (1) {
         printf("> ");

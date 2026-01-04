@@ -28,9 +28,16 @@ SNOW_EXTERN_C_BEGIN
 
 
 /*!
- *
+ * Builtin function signature: SNObject_ref (*SNBuiltinFunc)(SNOW_ENV, SNObject_ref args);
  */
-SNOW_API SNObject_ref snow_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr);
+
+SNOW_API SNObject_ref snow_builtin_car(SNOW_ENV, SNObject_ref args);
+SNOW_API SNObject_ref snow_builtin_cdr(SNOW_ENV, SNObject_ref args);
+SNOW_API SNObject_ref snow_builtin_cons(SNOW_ENV, SNObject_ref args);
+
+// Arithmetic (placeholders)
+// SNOW_API SNObject_ref snow_builtin_add(SNOW_ENV, SNObject_ref args);
+// SNOW_API SNObject_ref snow_builtin_sub(SNOW_ENV, SNObject_ref args);
 
 
 SNOW_EXTERN_C_END
