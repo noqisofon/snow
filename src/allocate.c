@@ -1,7 +1,7 @@
 /*!
   \file allocate.c
 */
-/* 
+/*
  Auther:
       ned rihine <ned.rihine@gmail.com>
 
@@ -23,14 +23,14 @@
 #include "config.h"
 
 #ifdef HAVE_MEMORY_H
-#   include <memory.h>
-#endif  /* def HAVE_MEMORY_H */
+#    include <memory.h>
+#endif /* def HAVE_MEMORY_H */
 #ifdef HAVE_STDDEF_H
-#   include <stddef.h>
-#endif  /* def HAVE_STDDEF_H */
+#    include <stddef.h>
+#endif /* def HAVE_STDDEF_H */
 #ifdef HAVE_STDINT_H
-#   include <stdint.h>
-#endif  /* def HAVE_STDINT_H */
+#    include <stdint.h>
+#endif /* def HAVE_STDINT_H */
 
 #include "snow/snow.h"
 
@@ -39,32 +39,21 @@
 
 #include "snow/allocate.h"
 
-
 SNOW_EXTERN_C_BEGIN
 
-
-SNOW_API void* snow_malloc(SNOW_ENV, size_t size)
-{
-    void*  ret;
+SNOW_API void *snow_malloc( SNOW_ENV, size_t size ) {
+    void *ret;
 
     ret = malloc( size );
 
     return ret;
 }
 
-SNOW_API void* snow_atomic_malloc(SNOW_ENV, size_t size)
-{
-    return snow_malloc(env, size);
-}
+SNOW_API void *snow_atomic_malloc( SNOW_ENV, size_t size ) { return snow_malloc( env, size ); }
 
-SNOW_API void snow_free(SNOW_ENV, void* memp)
-{
-    free(memp);
-}
-
+SNOW_API void  snow_free( SNOW_ENV, void *memp ) { free( memp ); }
 
 SNOW_EXTERN_C_END
-
 
 // Local Variables:
 //   coding: utf-8

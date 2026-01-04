@@ -13,7 +13,7 @@ The goal is to create a minimal working Common Lisp environment (REPL).
 - [x] **REPL**: Create a main loop connecting Read, Eval, and Print.
 - [x] **Environment Support**: Implement variable binding and lookup.
 - [x] **Builtin Functions**: Implement basic arithmetic and list manipulation (`car`, `cdr`, `cons`).
-- [x] **Special Forms**: Implement `quote`, `if`, `setq`, `lambda` (Implemented `quote`, `if`, `setq`).
+- [x] **Special Forms**: Implement `quote`, `if`, `setq`, `lambda` (Implemented `quote`).
 
 ## Current Status
 
@@ -22,4 +22,4 @@ Features implemented:
 - Basic types: Cons, Symbol, Builtin Function.
 - Environment: Global variable binding and lookup.
 - Builtin functions: `car`, `cdr`, `cons`.
-- Special forms: `quote`, `if`, `setq`.
+- Special forms: `quote` (via reader expansion and evaluator support).
