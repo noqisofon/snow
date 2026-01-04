@@ -43,13 +43,23 @@
 SNOW_EXTERN_C_BEGIN
 
 
-SNOW_API SNObject_ref snow_alloc(size_t size)
+SNOW_API void* snow_malloc(SNOW_ENV, size_t size)
 {
-    SNObject_ref  ret;
+    void*  ret;
 
-    ret = (SNObject_ref)malloc( size );
+    ret = malloc( size );
 
     return ret;
+}
+
+SNOW_API void* snow_atomic_malloc(SNOW_ENV, size_t size)
+{
+    return snow_malloc(env, size);
+}
+
+SNOW_API void snow_free(SNOW_ENV, void* memp)
+{
+    free(memp);
 }
 
 

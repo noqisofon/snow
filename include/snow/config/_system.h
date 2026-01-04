@@ -28,7 +28,7 @@
 #if defined(__sun)
 
 #elif defined(linux) || defined(__linux__)
-#   defined SNOW_PLATFORM   "Linux"
+#   define SNOW_PLATFORM   "Linux"
 #   include <snow/config/_linux.h>
 #   if defined(__GNUC__)
 #       include <snow/config/_gcc.h>

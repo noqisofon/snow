@@ -54,3 +54,6 @@ include/config.h
 include/stamp-h1
 
 !.gitkeep
+
+# Executables
+src/snow

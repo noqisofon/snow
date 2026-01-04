@@ -52,6 +52,7 @@
 
 #include <snow/config/_system.h>
 
+#include <snow/environment.h>
 #include <snow/object.h>
 
 #endif  /* snow_snow_h */

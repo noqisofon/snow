@@ -28,6 +28,7 @@
 #ifdef HAVE_STDINT_H
 #   include <stdint.h>
 #endif  /* def HAVE_STDINT_H */
+#include <string.h>
 
 #include "snow/snow.h"
 
@@ -40,18 +41,25 @@
 SNOW_EXTERN_C_BEGIN
 
 
-static SNObject_ref snow_make_instace(uint8_t type_id)
+static SNObject_ref snow_make_instance(SNOW_ENV, uint8_t type_id)
 {
     SNObject_ref ret = SNOW_NIL;
 
     switch ( type_id ) {
-        case snow_t_symbol:
-            ret = snow_alloc( sizeof(struct snow_symbol_s) );
+        case SNOW_TYPE_SYMBOL:
+            ret = (SNObject_ref)snow_malloc(env, sizeof(struct snow_symbol_s) );
             SNOW_SET_TYPEID(ret, type_id);
+            break;
 
-        case snow_t_cons:
-            ret = snow_alloc( sizeof(struct snow_cons_s) );
+        case SNOW_TYPE_CONS:
+            ret = (SNObject_ref)snow_malloc(env, sizeof(struct snow_cons_s) );
             SNOW_SET_TYPEID(ret, type_id);
+            break;
+
+        case SNOW_TYPE_BUILTIN:
+            ret = (SNObject_ref)snow_malloc(env, sizeof(struct snow_builtin_s) );
+            SNOW_SET_TYPEID(ret, type_id);
+            break;
 
         default:
             ret = SNOW_NIL;
@@ -61,14 +69,43 @@ static SNObject_ref snow_make_instace(uint8_t type_id)
 }
 
 
-SNOW_API SNObject_ref snow_make_cons(SNOW_ENV)
+SNOW_API SNObject_ref snow_make_cons(SNOW_ENV, SNObject_ref car, SNObject_ref cdr)
 {
-    return snow_make_instance( snow_t_cons );
+    SNCons_ref c = (SNCons_ref)snow_make_instance(env, SNOW_TYPE_CONS );
+    c->car = car;
+    c->cdr = cdr;
+    return (SNObject_ref)c;
 }
 
+SNOW_API SNObject_ref snow_make_symbol(SNOW_ENV, const char* name)
+{
+    struct snow_symbol_s* sym = (struct snow_symbol_s*)snow_make_instance(env, SNOW_TYPE_SYMBOL);
+    // Duplicate string
+    if (name) {
+        size_t len = strlen(name);
+        sym->name = (char*)snow_malloc(env, len + 1);
+        strcpy(sym->name, name);
+    } else {
+        sym->name = NULL;
+    }
+    return (SNObject_ref)sym;
+}
+
+SNOW_API SNObject_ref snow_make_builtin(SNOW_ENV, SNBuiltinFunc func, const char* name)
+{
+    struct snow_builtin_s* b = (struct snow_builtin_s*)snow_make_instance(env, SNOW_TYPE_BUILTIN);
+    b->func = func;
+    if (name) {
+        size_t len = strlen(name);
+        b->name = (char*)snow_malloc(env, len + 1);
+        strcpy(b->name, name);
+    } else {
+        b->name = NULL;
+    }
+    return (SNObject_ref)b;
+}
 
 SNOW_EXTERN_C_END
 // Local Variables:
 //   coding: utf-8
 // End:
-
