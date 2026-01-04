@@ -1,7 +1,7 @@
 /*
   \file snow.h
 */
-/* 
+/*
  Auther:
       ned rihine <ned.rihine@gmail.com>
 
@@ -21,41 +21,41 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef snow_snow_h
-#define snow_snow_h
+#    define snow_snow_h
 
-#include <sys/types.h>
+#    include <sys/types.h>
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#    include <stdint.h>
+#    include <stdio.h>
+#    include <stdlib.h>
+#    include <stdarg.h>
 
-#ifndef TRUE
-#   define   TRUE    1
-#endif  /* ndef TRUE */
+#    ifndef TRUE
+#        define TRUE 1
+#    endif /* ndef TRUE */
 
-#ifndef FALSE
-#   define   FALSE   0
-#endif  /* ndef TRUE */
+#    ifndef FALSE
+#        define FALSE 0
+#    endif /* ndef TRUE */
 
-#ifndef __cplusplus
-#   include <stdbool.h>
-#endif  /* ndef __cplusplus */
+#    ifndef __cplusplus
+#        include <stdbool.h>
+#    endif /* ndef __cplusplus */
 
-#if defined(__cplusplus)
-#   define SNOW_EXTERN_C_BEGIN    extern "C" {
-#   define SNOW_EXTERN_C_END      }
-#else
-#   define SNOW_EXTERN_C_BEGIN
-#   define SNOW_EXTERN_C_END
-#endif  /* defined(__cplusplus) */
+#    if defined( __cplusplus )
+#        define SNOW_EXTERN_C_BEGIN extern "C" {
+#        define SNOW_EXTERN_C_END   }
+#    else
+#        define SNOW_EXTERN_C_BEGIN
+#        define SNOW_EXTERN_C_END
+#    endif /* defined(__cplusplus) */
 
-#include <snow/config/_system.h>
+#    include <snow/config/_system.h>
 
-#include <snow/environment.h>
-#include <snow/object.h>
+#    include <snow/environment.h>
+#    include <snow/object.h>
 
-#endif  /* snow_snow_h */
+#endif /* snow_snow_h */
 // Local Variables:
 //   coding: utf-8
 // End:

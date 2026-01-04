@@ -1,7 +1,7 @@
 /*!
    \file allocate.h
 */
-/* 
+/*
  Auther:
       ned rihine <ned.rihine@gmail.com>
 
@@ -21,34 +21,28 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef snow_allocate_h
-#define snow_allocate_h
-
+#    define snow_allocate_h
 
 SNOW_EXTERN_C_BEGIN
 
+/*!
+ *
+ */
+SNOW_API void *snow_malloc( SNOW_ENV, size_t size );
 
 /*!
  *
  */
-SNOW_API void* snow_malloc(SNOW_ENV, size_t size);
-
-
-/*!
- *
- */
-SNOW_API void* snow_atomic_malloc(SNOW_ENV, size_t size);
-
+SNOW_API void *snow_atomic_malloc( SNOW_ENV, size_t size );
 
 /*!
  *
  */
-SNOW_API void snow_free(SNOW_ENV, void* memp);
-
+SNOW_API void  snow_free( SNOW_ENV, void *memp );
 
 SNOW_EXTERN_C_END
 
-
-#endif  /* snow_allocate_h */
+#endif /* snow_allocate_h */
 // Local Variables:
 //   coding: utf-8
 // End:

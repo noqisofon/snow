@@ -1,7 +1,7 @@
-/* 
+/*
    \def diagnostics.h
 */
-/* 
+/*
  Auther:
       ned rihine <ned.rihine@gmail.com>
 
@@ -21,19 +21,15 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef snow_diagnostics_h
-#define snow_diagnostics_h
-
+#    define snow_diagnostics_h
 
 SNOW_EXTERN_C_BEGIN
 
-
-#define DEBUG_PRINT(_format_or_message_, ...)
-
+#    define DEBUG_PRINT( _format_or_message_, ... )
 
 SNOW_EXTERN_C_END
 
-
-#endif  /* snow_diagnostics_h */
+#endif /* snow_diagnostics_h */
 // Local Variables:
 //   coding: utf-8
 // End:

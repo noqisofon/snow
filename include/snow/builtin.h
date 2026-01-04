@@ -1,7 +1,7 @@
-/* 
+/*
      builtin.h  -  buildin functions
 */
-/* 
+/*
  Auther:
       ned rihine <ned.rihine@gmail.com>
 
@@ -21,29 +21,25 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef snow_builtin_h
-#define snow_builtin_h
-
+#    define snow_builtin_h
 
 SNOW_EXTERN_C_BEGIN
-
 
 /*!
  * Builtin function signature: SNObject_ref (*SNBuiltinFunc)(SNOW_ENV, SNObject_ref args);
  */
 
-SNOW_API SNObject_ref snow_builtin_car(SNOW_ENV, SNObject_ref args);
-SNOW_API SNObject_ref snow_builtin_cdr(SNOW_ENV, SNObject_ref args);
-SNOW_API SNObject_ref snow_builtin_cons(SNOW_ENV, SNObject_ref args);
+SNOW_API SNObject_ref snow_builtin_car( SNOW_ENV, SNObject_ref args );
+SNOW_API SNObject_ref snow_builtin_cdr( SNOW_ENV, SNObject_ref args );
+SNOW_API SNObject_ref snow_builtin_cons( SNOW_ENV, SNObject_ref args );
 
 // Arithmetic (placeholders)
 // SNOW_API SNObject_ref snow_builtin_add(SNOW_ENV, SNObject_ref args);
 // SNOW_API SNObject_ref snow_builtin_sub(SNOW_ENV, SNObject_ref args);
 
-
 SNOW_EXTERN_C_END
 
-
-#endif  /* snow_builtin_h */
+#endif /* snow_builtin_h */
 // Local Variables:
 //   coding: utf-8
 // End:

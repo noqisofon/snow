@@ -1,9 +1,9 @@
 /*
   \file _windows.h
   \since 2014
-  \brief 
+  \brief
 */
-/* 
+/*
  Auther:
       ned rihine <ned.rihine@gmail.com>
 
@@ -26,59 +26,56 @@
 #define snow_config__window_h
 
 #ifndef SNOW_PLATFORM
-#   define SNOW_PLATFORM   "Windows"
-#endif  /* ndef SNOW_PLATFORM */
+#    define SNOW_PLATFORM "Windows"
+#endif /* ndef SNOW_PLATFORM */
 
 #ifndef SNOW_WIN32_VERSION
-#   if defined(_WINVER)
-#       define    SNOW_WIN32_VERSION    _WINVER
-#   elif defined(_WIN32_WINDOWS)
-#       define    SNOW_WIN32_VERSION    _WIN32_WINDOWS
-#   endif  /* defined(_WINVER) */
-#endif  /* ndef SNOW_WIN32_VERSION */
+#    if defined( _WINVER )
+#        define SNOW_WIN32_VERSION _WINVER
+#    elif defined( _WIN32_WINDOWS )
+#        define SNOW_WIN32_VERSION _WIN32_WINDOWS
+#    endif /* defined(_WINVER) */
+#endif     /* ndef SNOW_WIN32_VERSION */
 
-#if !defined(SNOW_BIG_ENDIAN) && !defined(SNOW_LITTLE_ENDIAN)
-#   if defined(_MIPSEB)
-#       define  SNOW_BIG_ENDIAN        1
-#   endif  /* defined(_MIPSEB) */
+#if !defined( SNOW_BIG_ENDIAN ) && !defined( SNOW_LITTLE_ENDIAN )
+#    if defined( _MIPSEB )
+#        define SNOW_BIG_ENDIAN 1
+#    endif /* defined(_MIPSEB) */
 
-#   if defined(__i386) || defined(_M_IX86) || defined(_M_ARM) ||        \
-    defined(__amd64__) || defined(_M_AMD64) || defined(__x86_64__) ||   \
-    defined(__alpha__)
-#       define    SNOW_LITTLE_ENDIAN     1
-#   endif  /* defined(__i386)    || defined(_M_IX86)  || defined(_M_ARM)     ||   \
-              defined(__amd64__) || defined(_M_AMD64) || defined(__x86_64__) ||   \
+#    if defined( __i386 ) || defined( _M_IX86 ) || defined( _M_ARM ) || defined( __amd64__ ) || defined( _M_AMD64 ) || \
+        defined( __x86_64__ ) || defined( __alpha__ )
+#        define SNOW_LITTLE_ENDIAN 1
+#    endif /* defined(__i386)    || defined(_M_IX86)  || defined(_M_ARM)     ||                                        \
+              defined(__amd64__) || defined(_M_AMD64) || defined(__x86_64__) ||                                        \
               defined(__alpha__) */
 
-#   if defined(__ia64__)
-#       if defined(__BIG_ENDIAN__)
-#           define    SNOW_LITTLE_ENDIAN    1
-#       else
-#           define    SNOW_BIG_ENDIAN       1
-#       endif  /* defined(__BIG_ENDIAN__) */
-#   endif  /* defined(__ia64__) */
+#    if defined( __ia64__ )
+#        if defined( __BIG_ENDIAN__ )
+#            define SNOW_LITTLE_ENDIAN 1
+#        else
+#            define SNOW_BIG_ENDIAN 1
+#        endif /* defined(__BIG_ENDIAN__) */
+#    endif     /* defined(__ia64__) */
 
-#endif  /* !defined(SNOW_BIG_ENDIAN) && !defined(SNOW_LITTLE_ENDIAN) */
+#endif /* !defined(SNOW_BIG_ENDIAN) && !defined(SNOW_LITTLE_ENDIAN) */
 
-#if !defined(SNOW_WINDOWS_H_INCLUDED)
-#   define    SNOW_WINDOWS_H_INCLUDED
+#if !defined( SNOW_WINDOWS_H_INCLUDED )
+#    define SNOW_WINDOWS_H_INCLUDED
 
-#   if !defined(SNOW_MSVC) || defined(__BORLANDC__) || defined(__ICL) || defined(__WATCOMC__) || \
-    defined(__MINGW32__) || defined(__DMC__)
-#       if defined(SNOW_USE_MFC)
-#           include <afx.h>
-#       else
-#           include <windows.h>
-#       endif  /* defined(SNOW_USE_MFC) */
-#   else
+#    if !defined( SNOW_MSVC ) || defined( __BORLANDC__ ) || defined( __ICL ) || defined( __WATCOMC__ ) ||              \
+        defined( __MINGW32__ ) || defined( __DMC__ )
+#        if defined( SNOW_USE_MFC )
+#            include <afx.h>
+#        else
+#            include <windows.h>
+#        endif /* defined(SNOW_USE_MFC) */
+#    else
 SNOW_EXTERN_C_BEGIN
 
-
-
 SNOW_EXTERN_C_END
-#   endif  /* !defined(SNOW_MSVC)   || defined(__BORLANDC__) || defined(__ICL) || defined(__WATCOMC__) || \
+#    endif /* !defined(SNOW_MSVC)   || defined(__BORLANDC__) || defined(__ICL) || defined(__WATCOMC__) ||              \
                defined(__MINGW32__) || defined(__DMC__) */
 
-#endif  /* !defined(SNOW_WINDOWS_H_INCLUDED) */
+#endif /* !defined(SNOW_WINDOWS_H_INCLUDED) */
 
-#endif  /* snow_config__window_h */
+#endif /* snow_config__window_h */
