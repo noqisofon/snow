@@ -26,7 +26,7 @@
 #define snow_config__window_h
 
 #ifndef SNOW_PLATFORM
-#   defined SNOW_PLATFORM   "Windows"
+#   define SNOW_PLATFORM   "Windows"
 #endif  /* ndef SNOW_PLATFORM */
 
 #ifndef SNOW_WIN32_VERSION

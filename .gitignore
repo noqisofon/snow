@@ -57,3 +57,4 @@ include/stamp-h1
 
 # Executables
 src/snow
+*.exe
